@@ -12,7 +12,7 @@ func KeyValuesToMap(keyValues ...interface{}) (map[string]interface{}, error) {
 		if i+1 < len(keyValues) {
 			m[fmt.Sprint(keyValues[i])] = keyValues[i+1]
 		} else {
-			return nil, errors.New(fmt.Sprintf("missing %v index as value", i))
+			return nil, errors.New(fmt.Sprintf("missing %v index value", i))
 		}
 	}
 
