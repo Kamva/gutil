@@ -3,7 +3,6 @@
 
 # lab directories
 /lab
-/cmd/lab
 # Compiled test files
 *.test
 
