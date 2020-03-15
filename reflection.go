@@ -40,6 +40,17 @@ func IndirectType(val interface{}) (reflect.Type, error) {
 	return rType, nil
 }
 
+// NewInstanceByValue get the value and return new instance of that value type.
+// Provided value can be either by reference or by value.
+func NewInstanceByValue(v interface{}) (interface{}, error) {
+	t, err := IndirectType(v)
+	if err != nil {
+		return nil, err
+	}
+
+	return reflect.New(t).Interface(), nil
+}
+
 // StructTags return struct all fields tags.
 func StructTags(val interface{}) ([]reflect.StructTag, error) {
 	rType, err := IndirectType(val)
