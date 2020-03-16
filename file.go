@@ -1,0 +1,13 @@
+package gutil
+
+import "os"
+
+// FileExists checks if a file exists and is not a directory before we
+// try using it to prevent further errors.
+func FileExists(f string) bool {
+	info, err := os.Stat(f)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
