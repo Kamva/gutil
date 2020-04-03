@@ -8,3 +8,14 @@ func Must(val interface{}, err error) interface{} {
 
 	return val
 }
+
+// AnyErr returns first error that is not nil.
+func AnyErr(errors ...error) error {
+	for _, err := range errors {
+		if !IsNil(err) {
+			return err
+		}
+	}
+
+	return nil
+}
