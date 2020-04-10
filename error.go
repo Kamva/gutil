@@ -19,3 +19,16 @@ func AnyErr(errors ...error) error {
 
 	return nil
 }
+
+func CauseErr(err error) error {
+	for {
+		u, ok := err.(interface {
+			Unwrap() error
+		})
+		if !ok {
+			break
+		}
+		err = u.Unwrap()
+	}
+	return err
+}

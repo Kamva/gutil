@@ -42,6 +42,7 @@ func IndirectType(val interface{}) (reflect.Type, error) {
 
 // NewInstanceByValue get the value and return new instance of that value type.
 // Provided value can be either by reference or by value.
+// Returned value is by reference
 func NewInstanceByValue(v interface{}) (interface{}, error) {
 	t, err := IndirectType(v)
 	if err != nil {
