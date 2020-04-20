@@ -21,3 +21,13 @@ func MapToStruct(m map[string]interface{}, s interface{}) error {
 
 	return json.Unmarshal(encodedJson, s)
 }
+
+// UnmarshalStructToStruct firstly marshal a struct and then unmarshal it to the target.
+func UnmarshalStruct(from, to interface{}) error {
+	encodedJson, err := json.Marshal(from)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(encodedJson, &to)
+	return err
+}
