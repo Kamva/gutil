@@ -72,12 +72,12 @@ func StructTags(val interface{}) ([]reflect.StructTag, error) {
 	return tags, nil
 }
 
-// InterfaceSlice converts interface to slices.
+// InterfaceToSlice converts interface to slices.
 // If provided value is not list, it will panic.
-func InterfaceSlice(slice interface{}) []interface{} {
+func InterfaceToSlice(slice interface{}) []interface{} {
 	s := reflect.ValueOf(slice)
 	if s.Kind() != reflect.Slice {
-		panic("InterfaceSlice() given a non-slice type")
+		panic("InterfaceToSlice() given a non-slice type")
 	}
 
 	ret := make([]interface{}, s.Len())
