@@ -40,6 +40,31 @@ func IndirectType(val interface{}) (reflect.Type, error) {
 	return rType, nil
 }
 
+// Indirect returns the value that the given interface or pointer references to.
+// A boolean value is also returned to indicate if the value is nil or not (only
+// applicable to interface, pointer, map, and slice). If the value is neither an
+// interface nor a pointer, it will be returned back.
+// reference: https://github.com/go-ozzo/ozzo-validation/blob/master/util.go
+func IndirectValue(value interface{}) (interface{}, bool) {
+	rv := reflect.ValueOf(value)
+	kind := rv.Kind()
+	switch kind {
+	case reflect.Invalid:
+		return nil, true
+	case reflect.Ptr, reflect.Interface:
+		if rv.IsNil() {
+			return nil, true
+		}
+		return IndirectValue(rv.Elem().Interface())
+	case reflect.Slice, reflect.Map, reflect.Func, reflect.Chan:
+		if rv.IsNil() {
+			return nil, true
+		}
+	}
+
+	return value, false
+}
+
 // NewInstanceByValue get the value and return new instance of that value type.
 // Provided value can be either by reference or by value.
 // Returned value is by reference

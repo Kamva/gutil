@@ -6,6 +6,7 @@ go get github.com/Kamva/gutil
 ```
 
 #### Todo:
+- [ ] Use __jsonp__ instead of __json__ package to marshal and unmarshal jsons.
 - [ ] Tests
 - [ ] Add badges to readme.
 - [ ] CI 
