@@ -113,3 +113,12 @@ func InterfaceToSlice(slice interface{}) []interface{} {
 
 	return ret
 }
+
+// InterfaceDefault returns value if it's not nil, otherwise
+// returns the default value.
+func InterfaceDefault(val, def interface{}) interface{} {
+	if IsNil(val) {
+		return def
+	}
+	return val
+}
