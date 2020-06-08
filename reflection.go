@@ -45,24 +45,24 @@ func IndirectType(val interface{}) (reflect.Type, error) {
 // applicable to interface, pointer, map, and slice). If the value is neither an
 // interface nor a pointer, it will be returned back.
 // reference: https://github.com/go-ozzo/ozzo-validation/blob/master/util.go
-func IndirectValue(value interface{}) (interface{}, bool) {
+func IndirectValue(value interface{}) interface{} {
 	rv := reflect.ValueOf(value)
 	kind := rv.Kind()
 	switch kind {
 	case reflect.Invalid:
-		return nil, true
+		return nil
 	case reflect.Ptr, reflect.Interface:
 		if rv.IsNil() {
-			return nil, true
+			return nil
 		}
 		return IndirectValue(rv.Elem().Interface())
 	case reflect.Slice, reflect.Map, reflect.Func, reflect.Chan:
 		if rv.IsNil() {
-			return nil, true
+			return nil
 		}
 	}
 
-	return value, false
+	return value
 }
 
 // NewInstanceByValue get the value and return new instance of that value type.
