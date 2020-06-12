@@ -54,7 +54,7 @@ func TestMapKeysExtractor_Extract(t *testing.T) {
 	}
 
 	for _, inp := range depths {
-		keys := MapKeysExtractor{Depth: inp.depth, Separator: "."}.Extract(m)
+		keys := MapPathExtractor{Depth: inp.depth, Separator: "."}.Extract(m)
 		assert.Equal(t, inp.keys, keys, inp.tag)
 	}
 
@@ -70,7 +70,7 @@ func TestMapKeysExtractor_ExtractInvalidDepth(t *testing.T) {
 		},
 	}
 
-	keys := MapKeysExtractor{Depth: 0, Separator: "."}.Extract(m)
+	keys := MapPathExtractor{Depth: 0, Separator: "."}.Extract(m)
 	assert.Nil(t, keys)
 
 }

@@ -58,8 +58,8 @@ func ExtendStrMap(dest, src map[string]string, overwrite bool) {
 	}
 }
 
-// MapKeysExtractor extract the map keys recursively.
-type MapKeysExtractor struct {
+// MapPathExtractor extract the map paths recursively.
+type MapPathExtractor struct {
 	// Depth is depth of the keys. set to 1 to get just first level of keys.
 	Depth int
 
@@ -69,27 +69,27 @@ type MapKeysExtractor struct {
 	Separator string
 }
 
-func (e MapKeysExtractor) Extract(m map[string]interface{}) []string {
+func (e MapPathExtractor) Extract(m map[string]interface{}) []string {
 	return e.extractRecursive(m, "", 1)
 }
 
-func (e MapKeysExtractor) extractRecursive(m map[string]interface{}, prefix string, currentDepth int) []string {
+func (e MapPathExtractor) extractRecursive(m map[string]interface{}, prefix string, currentDepth int) []string {
 	if currentDepth > e.Depth {
 		return nil
 	}
-	var keys []string
+	var paths []string
 	for k, v := range m {
 		path := e.generatePath(prefix, k)
-		keys = append(keys, path)
+		paths = append(paths, path)
 		newMap, ok := v.(map[string]interface{})
 		if ok {
-			keys = append(keys, e.extractRecursive(newMap, path, currentDepth+1)...)
+			paths = append(paths, e.extractRecursive(newMap, path, currentDepth+1)...)
 		}
 	}
-	return keys
+	return paths
 }
 
-func (e MapKeysExtractor) generatePath(prefix, key string) string {
+func (e MapPathExtractor) generatePath(prefix, key string) string {
 	if prefix == "" {
 		return key
 	}
