@@ -81,8 +81,7 @@ func (e MapPathExtractor) extractRecursive(m map[string]interface{}, prefix stri
 	for k, v := range m {
 		path := e.generatePath(prefix, k)
 		paths = append(paths, path)
-		newMap, ok := v.(map[string]interface{})
-		if ok {
+		if newMap, ok := v.(map[string]interface{}); ok {
 			paths = append(paths, e.extractRecursive(newMap, path, currentDepth+1)...)
 		}
 	}
