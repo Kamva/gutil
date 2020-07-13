@@ -54,6 +54,9 @@ func TestMapKeysExtractor_Extract(t *testing.T) {
 	}
 
 	for _, inp := range depths {
+		// FIXME: return result is map, map keys order is in random, so this
+		// assertion is not true always, but in real test is true. so chang
+		// this assertion.
 		keys := MapPathExtractor{Depth: inp.depth, Separator: "."}.Extract(m)
 		assert.Equal(t, inp.keys, keys, inp.tag)
 	}

@@ -73,7 +73,7 @@ var (
 func StructToMap(input interface{}) map[string]interface{} {
 	var m = map[string]interface{}{}
 
-	encodedJson, _ := json.Marshal(input)
+	encodedJson, _ := marshalChain(input)
 	_ = unmarshalChain(encodedJson, &m)
 
 	return m
@@ -81,7 +81,7 @@ func StructToMap(input interface{}) map[string]interface{} {
 
 // MapToStruct convert map to struct by json marshal and Unmarshal
 func MapToStruct(m map[string]interface{}, s interface{}) error {
-	encodedJson, err := json.Marshal(m)
+	encodedJson, err := marshalChain(m)
 	if err != nil {
 		return err
 	}
