@@ -8,3 +8,5 @@ func Contains(haystack []string, needle string) bool {
 	i := sort.SearchStrings(haystack, needle)
 	return i < len(haystack) && haystack[i] == needle
 }
+
+// Other methods which we can implement: ContainsInt

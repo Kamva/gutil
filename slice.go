@@ -1,7 +1,7 @@
 package gutil
 
 func UniqueStrings(values []string) []string {
-	if values==nil {
+	if values == nil {
 		return nil
 	}
 
@@ -13,4 +13,19 @@ func UniqueStrings(values []string) []string {
 	}
 
 	return unique
+}
+
+func RemoveFromStrings(values []string, removal ...string) []string {
+	if values == nil {
+		return nil
+	}
+
+	clean := make([]string, 0)
+	for _, v := range values {
+		if Contains(removal, v) {
+			continue
+		}
+		clean = append(clean, v)
+	}
+	return clean
 }
