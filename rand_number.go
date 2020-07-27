@@ -2,10 +2,9 @@ package gutil
 
 import (
 	crand "crypto/rand"
+	"encoding/binary"
 	"errors"
 	"math/rand"
-
-	"encoding/binary"
 )
 
 var rnd = rand.New(cryptoSource{})
