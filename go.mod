@@ -1,4 +1,4 @@
-module github.com/Kamva/gutil
+module github.com/kamva/gutil
 
 go 1.13
 

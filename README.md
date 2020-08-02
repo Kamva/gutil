@@ -2,7 +2,7 @@
 
 #### Install
 ```
-go get github.com/Kamva/gutil
+go get github.com/kamva/gutil
 ```
 
 #### Todo:
