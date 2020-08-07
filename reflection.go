@@ -65,16 +65,25 @@ func IndirectValue(value interface{}) interface{} {
 	return value
 }
 
-// NewInstanceByValue get the value and return new instance of that value type.
+// ValuePtr returns pointer to the provided value.
 // Provided value can be either by reference or by value.
-// Returned value is by reference
-func NewInstanceByValue(v interface{}) (interface{}, error) {
+func ValuePtr(v interface{}) (interface{}, error) {
 	t, err := IndirectType(v)
 	if err != nil {
 		return nil, err
 	}
 
 	return reflect.New(t).Interface(), nil
+}
+
+// MustValuePtr returns pointer to the provided value and panic if
+// occurred error.
+func MustValuePtr(v interface{}) interface{} {
+	pv, err := ValuePtr(v)
+	if err != nil {
+		panic(err)
+	}
+	return pv
 }
 
 // StructTags return struct all fields tags.
