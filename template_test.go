@@ -6,9 +6,6 @@ import (
 )
 
 func TestRenderTextTemplate(t *testing.T) {
-	type A struct {
-		Name string `json:"name"`
-	}
 	var testTable = []struct {
 		tag      string
 		text     string
@@ -17,7 +14,7 @@ func TestRenderTextTemplate(t *testing.T) {
 		hasError bool
 	}{
 		{"t1", "", nil, "", false},
-		{"t2", "hi {{.Name}}", A{Name: "Mehran"}, "hi Mehran", false},
+		{"t2", "hi {{.Name}}", map[string]string{"Name": "Mehran"}, "hi Mehran", false},
 		{"t3", "hi {{.LastName}}", map[string]string{"Name": "mehran"}, "hi <no value>", false},
 	}
 	for _, data := range testTable {
