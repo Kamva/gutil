@@ -37,6 +37,10 @@ func MapToKeyValue(m map[string]interface{}) []interface{} {
 // ExtendMap extend dest map by src map.
 // overwrite argument set overwrite policy.
 func ExtendMap(dest, src map[string]interface{}, overwrite bool) {
+	if dest == nil {
+		dest = make(map[string]interface{})
+	}
+
 	for key, val := range src {
 		// If key exists in dest and we can not overwrite it, so continue.
 		if _, ok := dest[key]; ok && !overwrite {
@@ -49,6 +53,10 @@ func ExtendMap(dest, src map[string]interface{}, overwrite bool) {
 // ExtendMap extend dest map by src map.
 // overwrite argument set overwrite policy.
 func ExtendStrMap(dest, src map[string]string, overwrite bool) {
+	if dest == nil {
+		dest = make(map[string]string)
+	}
+
 	for key, val := range src {
 		// If key exists in dest and we can not overwrite it, so continue.
 		if _, ok := dest[key]; ok && !overwrite {
