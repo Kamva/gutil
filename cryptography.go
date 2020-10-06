@@ -7,15 +7,16 @@ import (
 	"errors"
 )
 
-type RSAKeyFormat int
+type KeyFormat int
 
 const (
-	RSAKeyFormatPKCS1 = 1
-	RSAKeyFormatPKCS8 = 2
+	KeyFormatPKCS1 = 1
+	KeyFormatPKCS8 = 2
+	KeyFormatPKIX  = 3
 )
 
 // ParsePrivateKeyFromPem parses private key from the pem value.
-func ParseRSAPrivateKey(pemBytes []byte, keyFormat RSAKeyFormat) (*rsa.PrivateKey, error) {
+func ParseRSAPrivateKey(pemBytes []byte, keyFormat KeyFormat) (*rsa.PrivateKey, error) {
 	key, err := ParsePrivateKey(pemBytes, keyFormat)
 
 	if err != nil {
@@ -29,24 +30,24 @@ func ParseRSAPrivateKey(pemBytes []byte, keyFormat RSAKeyFormat) (*rsa.PrivateKe
 	return rsaKey, nil
 }
 
-func ParsePrivateKey(pemBytes []byte, keyFormat RSAKeyFormat) (key interface{}, err error) {
+func ParsePrivateKey(pemBytes []byte, keyFormat KeyFormat) (key interface{}, err error) {
 	block, _ := pem.Decode(pemBytes)
 	if block == nil {
 		return nil, errors.New("failed to parse PEM block containing the key")
 	}
 
 	switch keyFormat {
-	case RSAKeyFormatPKCS1:
+	case KeyFormatPKCS1:
 		key, err = x509.ParsePKCS1PrivateKey(block.Bytes)
-	case RSAKeyFormatPKCS8:
+	case KeyFormatPKCS8:
 		key, err = x509.ParsePKCS8PrivateKey(block.Bytes)
 	}
 
 	return
 }
 
-func ParseRSAPublicKey(pemBytes []byte) (*rsa.PublicKey, error) {
-	pub, err := ParsePublicKey(pemBytes)
+func ParseRSAPublicKey(pemBytes []byte, format KeyFormat) (*rsa.PublicKey, error) {
+	pub, err := ParsePublicKey(pemBytes, format)
 	if err != nil {
 		return nil, err
 	}
@@ -58,12 +59,18 @@ func ParseRSAPublicKey(pemBytes []byte) (*rsa.PublicKey, error) {
 	return publicKey, nil
 }
 
-func ParsePublicKey(pemBytes []byte) (key interface{}, err error) {
+func ParsePublicKey(pemBytes []byte, keyFormat KeyFormat) (key interface{}, err error) {
 	block, _ := pem.Decode(pemBytes)
 	if block == nil {
 		return nil, errors.New("failed to parse PEM block containing the key")
 	}
 
-	key, err = x509.ParsePKIXPublicKey(block.Bytes)
+	switch keyFormat {
+	case KeyFormatPKCS1:
+		key, err = x509.ParsePKCS1PublicKey(block.Bytes)
+	case KeyFormatPKCS8:
+		key, err = x509.ParsePKIXPublicKey(block.Bytes)
+	}
+
 	return
 }
