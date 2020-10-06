@@ -38,7 +38,7 @@ func MapToKeyValue(m map[string]interface{}) []interface{} {
 // overwrite argument set overwrite policy.
 func ExtendMap(dest, src map[string]interface{}, overwrite bool) {
 	if dest == nil {
-		dest = make(map[string]interface{})
+		panic("destination map is nil, can not extend nil map")
 	}
 
 	for key, val := range src {
@@ -54,7 +54,7 @@ func ExtendMap(dest, src map[string]interface{}, overwrite bool) {
 // overwrite argument set overwrite policy.
 func ExtendStrMap(dest, src map[string]string, overwrite bool) {
 	if dest == nil {
-		dest = make(map[string]string)
+		panic("destination map is nil, can not extend nil map")
 	}
 
 	for key, val := range src {
