@@ -4,14 +4,18 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"errors"
+	"fmt"
 	"math/big"
+	"time"
 )
 
 type RandType int
 
 const (
 	RandTypeAlphaNum RandType = iota + 1
+	RandTypeLowercaseAlphaNum
 	RandTypeAlpha
+	RandTypeLowercaseAlpha
 	RandTypeNumber
 )
 
@@ -44,8 +48,12 @@ func RandStringWithType(size int, t RandType) string {
 	switch t {
 	case RandTypeAlphaNum:
 		dictionary = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+	case RandTypeLowercaseAlphaNum:
+		dictionary = "0123456789abcdefghijklmnopqrstuvwxyz"
 	case RandTypeAlpha:
 		dictionary = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+	case RandTypeLowercaseAlpha:
+		dictionary = "abcdefghijklmnopqrstuvwxyz"
 	case RandTypeNumber:
 		dictionary = "0123456789"
 	}
@@ -58,4 +66,8 @@ func RandStringWithType(size int, t RandType) string {
 		bytes[k] = dictionary[v%byte(len(dictionary))]
 	}
 	return string(bytes)
+}
+
+func RandWithDate(t time.Time, size int) string {
+	return fmt.Sprintf("%s-%s", FormatDateStuckTogether(t), RandStringWithType(size, RandTypeLowercaseAlphaNum))
 }
