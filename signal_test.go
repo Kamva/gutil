@@ -36,7 +36,7 @@ func TestWaitCallbackReturnError(t *testing.T) {
 	assert.Equal(t, myErr, err)
 }
 
-func TestWaitWaitUntilGetSignal(t *testing.T) {
+func TestWaitUntilGetSignal(t *testing.T) {
 	callback := func(s os.Signal) error {
 		return nil
 	}
@@ -47,5 +47,16 @@ func TestWaitWaitUntilGetSignal(t *testing.T) {
 		PanicErr(syscall.Kill(syscall.Getpid(), syscall.SIGTERM))
 	}()
 	_ = Wait(callback, syscall.SIGTERM)
+	assert.True(t, slept)
+}
+
+func TestWaitForSignalGetSignal(t *testing.T) {
+	var slept = false
+	go func() {
+		time.Sleep(3 * time.Second)
+		slept = true
+		PanicErr(syscall.Kill(syscall.Getpid(), syscall.SIGTERM))
+	}()
+	WaitForSignals(syscall.SIGTERM)
 	assert.True(t, slept)
 }

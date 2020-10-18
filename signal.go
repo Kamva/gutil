@@ -23,3 +23,10 @@ func Wait(callback func(s os.Signal) error, signals ...os.Signal) (err error) {
 	<-done
 	return
 }
+
+// WaitForSignals simply wait until get a signal which match with your provided signals.
+func WaitForSignals(signals ...os.Signal) {
+	sigs := make(chan os.Signal)
+	signal.Notify(sigs, signals...)
+	<-sigs
+}
