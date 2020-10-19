@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"github.com/google/uuid"
 	"math/big"
 	"time"
 )
@@ -18,6 +19,10 @@ const (
 	RandTypeLowercaseAlpha
 	RandTypeNumber
 )
+
+func UUID() string {
+	return uuid.New().String()
+}
 
 // RandNumber generate secure random number in range of [min,max).
 func RandNumber(min, max int64) int64 {
