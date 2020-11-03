@@ -32,6 +32,6 @@ func ReplaceAt(str string, replace string, begin int, end int) string {
 }
 
 // ReplaceRune replace single rune in specific index
-func ReplaceRune(str string, r rune, removalIndex int) string {
-	return ReplaceAt(str, string(r), removalIndex, removalIndex+1)
+func ReplaceRune(str string, new rune, index int) string {
+	return ReplaceAt(str, string(new), index, index+1)
 }
