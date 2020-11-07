@@ -27,6 +27,7 @@ func marshalProtobufNode(next marshalNode) marshalNode {
 		options := protojson.MarshalOptions{
 			UseProtoNames:   true,
 			EmitUnpopulated: true,
+			UseEnumNumbers: true,
 		}
 		return options.Marshal(proto.MessageV2(m))
 	}
