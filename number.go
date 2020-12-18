@@ -1,6 +1,9 @@
 package gutil
 
-import "strconv"
+import (
+	"strconv"
+	"time"
+)
 
 // ParseInt parse integer and returns value if string
 // value is a valid integer or default value
@@ -38,6 +41,18 @@ func Min64(vars ...int64) int64 {
 	return min
 }
 
+func MinDuration(vars ...time.Duration) time.Duration {
+	min := vars[0]
+
+	for _, i := range vars {
+		if min > i {
+			min = i
+		}
+	}
+
+	return min
+}
+
 func Max(vars ...int) int {
 	max := vars[0]
 
@@ -51,6 +66,18 @@ func Max(vars ...int) int {
 }
 
 func Max64(vars ...int64) int64 {
+	max := vars[0]
+
+	for _, i := range vars {
+		if max < i {
+			max = i
+		}
+	}
+
+	return max
+}
+
+func MaxDuration(vars ...time.Duration) time.Duration {
 	max := vars[0]
 
 	for _, i := range vars {
