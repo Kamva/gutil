@@ -2,6 +2,7 @@ package gutil
 
 import (
 	"encoding/json"
+
 	"github.com/golang/protobuf/proto"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -27,7 +28,7 @@ func marshalProtobufNode(next marshalNode) marshalNode {
 		options := protojson.MarshalOptions{
 			UseProtoNames:   true,
 			EmitUnpopulated: true,
-			UseEnumNumbers: true,
+			UseEnumNumbers:  true,
 		}
 		return options.Marshal(proto.MessageV2(m))
 	}
@@ -70,32 +71,40 @@ var (
 	unmarshalChain = unmarshalProtobufNode(unmarshalJSONNode(nil))
 )
 
+func Marshal(in interface{}) ([]byte, error) {
+	return marshalChain(in)
+}
+
+func Unmarshal(in []byte, out interface{}) error {
+	return unmarshalChain(in, out)
+}
+
 // StructToMap convert the struct to a map by marshall and un-marshall
 func StructToMap(input interface{}) map[string]interface{} {
 	var m = map[string]interface{}{}
 
-	encodedJson, _ := marshalChain(input)
-	_ = unmarshalChain(encodedJson, &m)
+	encodedJson, _ := Marshal(input)
+	_ = Unmarshal(encodedJson, &m)
 
 	return m
 }
 
 // MapToStruct convert map to struct by json marshal and Unmarshal
 func MapToStruct(m map[string]interface{}, s interface{}) error {
-	encodedJson, err := marshalChain(m)
+	encodedJson, err := Marshal(m)
 	if err != nil {
 		return err
 	}
 
-	return unmarshalChain(encodedJson, s)
+	return Unmarshal(encodedJson, s)
 }
 
 // UnmarshalMessageToAny marshal provided input to json and then unmarshal json bytes to provided output.
 // input and output can be regular struct, map or struct of protobuf message type.
 func UnmarshalStruct(from, to interface{}) error {
-	b, err := marshalChain(from)
+	b, err := Marshal(from)
 	if err != nil {
 		return err
 	}
-	return unmarshalChain(b, to)
+	return Unmarshal(b, to)
 }
