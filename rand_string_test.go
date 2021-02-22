@@ -12,7 +12,7 @@ func TestRandStringLength(t *testing.T) {
 
 func TestRandStringUniqueness(t *testing.T) {
 	values := make([]string, 1000)
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < len(values); i++ {
 		str := RandString(10)
 		assert.NotContains(t, values, str)
 		values[i] = str
