@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func AnyStringTest(t *testing.T) {
+func TestAnyString(t *testing.T) {
 	assert.Equal(t, "", AnyString())
 	assert.Equal(t, "", AnyString("", "", ""))
 	assert.Equal(t, "a", AnyString("a", "b"))
