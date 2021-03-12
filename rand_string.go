@@ -5,9 +5,10 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
 	"math/big"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type RandType int

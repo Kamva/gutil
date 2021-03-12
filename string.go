@@ -35,3 +35,14 @@ func ReplaceAt(str string, replace string, begin int, end int) string {
 func ReplaceRune(str string, new rune, index int) string {
 	return ReplaceAt(str, string(new), index, index+1)
 }
+
+// AnyString returns first found non-empty string value
+// in the provided values.
+func AnyString(values ...string)string{
+	for _,v:=range values {
+		if v!=""{
+			return v
+		}
+	}
+	return ""
+}
