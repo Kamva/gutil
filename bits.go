@@ -1,6 +1,6 @@
 package gutil
 
-type Bits int32
+type Bits uint32
 
 func (b Bits) Has(f Bits) bool {
 	return b&f != 0
