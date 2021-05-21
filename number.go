@@ -17,6 +17,19 @@ func ParseInt(val string, def int) int {
 	return def
 }
 
+// ParseUint64 parse unsigned integer and returns it
+// if the value is valid, otherwise returns the
+// default value.
+func ParseUint64(val string, def uint64) uint64 {
+	if val == "" {
+		return def
+	}
+	if result, err := strconv.ParseUint(val, 10, 64); err == nil {
+		return result
+	}
+	return def
+}
+
 func Min(vars ...int) int {
 	min := vars[0]
 
