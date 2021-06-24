@@ -38,11 +38,26 @@ func ReplaceRune(str string, new rune, index int) string {
 
 // AnyString returns first found non-empty string value
 // in the provided values.
-func AnyString(values ...string)string{
-	for _,v:=range values {
-		if v!=""{
+func AnyString(values ...string) string {
+	for _, v := range values {
+		if v != "" {
 			return v
 		}
 	}
 	return ""
+}
+
+func Sub(s1 []string, s2 []string) []string {
+	mb := make(map[string]struct{}, len(s2))
+	for _, v := range s2 {
+		mb[v] = struct{}{}
+	}
+
+	diff := make([]string, 0)
+	for _, v := range s1 {
+		if _, ok := mb[v]; !ok {
+			diff = append(diff, v)
+		}
+	}
+	return diff
 }
