@@ -114,8 +114,12 @@ func InterfaceToSlice(slice interface{}) []interface{} {
 		panic("InterfaceToSlice() given a non-slice type")
 	}
 
-	ret := make([]interface{}, s.Len())
+	// Keep the distinction between nil and empty slice input
+	if s.IsNil() {
+		return nil
+	}
 
+	ret := make([]interface{}, s.Len())
 	for i := 0; i < s.Len(); i++ {
 		ret[i] = s.Index(i).Interface()
 	}
