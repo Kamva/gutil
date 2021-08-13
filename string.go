@@ -61,3 +61,18 @@ func Sub(s1 []string, s2 []string) []string {
 	}
 	return diff
 }
+
+func Intersect(s1 []string, s2 []string) []string {
+	mb := make(map[string]struct{}, len(s2))
+	for _, v := range s2 {
+		mb[v] = struct{}{}
+	}
+
+	intersect := make([]string, 0)
+	for _, v := range s1 {
+		if _, ok := mb[v]; ok {
+			intersect = append(intersect, v)
+		}
+	}
+	return intersect
+}
