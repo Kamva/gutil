@@ -47,6 +47,8 @@ func AnyString(values ...string) string {
 	return ""
 }
 
+// Sub subtracts two slices. returns s1 - s2.
+// e.g., [1,2,3] - [2,3,4] = [1]
 func Sub(s1 []string, s2 []string) []string {
 	mb := make(map[string]struct{}, len(s2))
 	for _, v := range s2 {
@@ -62,6 +64,8 @@ func Sub(s1 []string, s2 []string) []string {
 	return diff
 }
 
+// Intersect returns intersect of two slices.
+// e.g., intersect of [1,2,3] & [2,3,4] = [2,3]
 func Intersect(s1 []string, s2 []string) []string {
 	mb := make(map[string]struct{}, len(s2))
 	for _, v := range s2 {

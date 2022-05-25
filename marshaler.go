@@ -99,7 +99,7 @@ func MapToStruct(m map[string]interface{}, s interface{}) error {
 	return Unmarshal(encodedJson, s)
 }
 
-// UnmarshalMessageToAny marshal provided input to json and then unmarshal json bytes to provided output.
+// UnmarshalStruct marshal provided input to json and then unmarshal json bytes to provided output.
 // input and output can be regular struct, map or struct of protobuf message type.
 func UnmarshalStruct(from, to interface{}) error {
 	b, err := Marshal(from)
