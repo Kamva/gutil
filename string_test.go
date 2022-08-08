@@ -50,12 +50,34 @@ func TestIntersect(t *testing.T) {
 		{"t4", []string{"a", "b"}, []string{}, []string{}},
 		{"t5", []string{"a", "b"}, []string{"a"}, []string{"a"}},
 		{"t6", []string{"a", "b"}, []string{"a", "c"}, []string{"a"}},
-		{"t7", []string{"a", "b"}, []string{"a", "b"}, []string{"a","b"}},
+		{"t7", []string{"a", "b"}, []string{"a", "b"}, []string{"a", "b"}},
 	}
 
 	for _, v := range table {
 		t.Run(v.Tag, func(t *testing.T) {
 			assert.Equal(t, v.Intersect, Intersect(v.S1, v.S2))
+		})
+	}
+}
+
+func TestLowerFirst(t *testing.T) {
+	table := []struct {
+		Tag    string
+		Val    string
+		Result string
+	}{
+		{"t1", "", ""},
+		{"t2", "a", "a"},
+		{"t3", "A", "a"},
+		{"t4", "ab", "ab"},
+		{"t5", "Ab", "ab"},
+		{"t6", "AB", "aB"},
+		{"t7", "aB", "aB"},
+	}
+
+	for _, v := range table {
+		t.Run(v.Tag, func(t *testing.T) {
+			assert.Equal(t, v.Result, LowerFirst(v.Val))
 		})
 	}
 }

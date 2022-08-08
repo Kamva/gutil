@@ -3,6 +3,7 @@ package gutil
 import (
 	"regexp"
 	"strings"
+	"unicode"
 )
 
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
@@ -79,4 +80,13 @@ func Intersect(s1 []string, s2 []string) []string {
 		}
 	}
 	return intersect
+}
+
+// LowerFirst converts first letter of string to lowercase.
+func LowerFirst(v string) string {
+	for i, r := range v { // run loop to get first rune.
+		return string(unicode.ToLower(r)) + v[i+1:]
+	}
+
+	return ""
 }
